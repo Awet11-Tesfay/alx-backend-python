@@ -6,4 +6,5 @@ from math import floor as roundup
 
 
 def floor(n: float) -> int:
+    '''rounds up a float'''
     return roundup(n)
