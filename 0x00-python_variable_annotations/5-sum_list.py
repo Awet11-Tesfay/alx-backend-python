@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-''' Description- annoted function which takes a list of floats 
-    and returns a sum of the list.
-    Arguments- input_list: List[float]
+''' Description: akes a list input_list of floats as argument and
+    returns their sum as a float.
+    Arguments: input_list: List[float]
 '''
 
 from typing import List
 
 
 def sum_list(input_list: List[float]) -> float:
-    ''' Return sum of the list '''
+    '''Return sum of all elements in input_list. '''
     return sum(input_list)
