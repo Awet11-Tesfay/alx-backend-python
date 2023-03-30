@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 ''' Description: function which takes alist of integers and floats and 
     return their sum as float
-    Arguments: mxd_lst: floats and integers
+    Arguments: mxd_lst: List[Union[int, float]]
 '''
 
 from typing import List, Union
