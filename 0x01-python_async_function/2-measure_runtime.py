@@ -11,6 +11,6 @@ wait_n = __import__('1-concurrent_coroutines').wait_n
 
 def measure_time(n: int, max_delay: int) -> float:
     ''' Returns execution time for wait_n given n and mex_delay. '''
-    beg = time()
+    start = time()
     run(wait_n(n, max_delay))
-    return (time() - beg) / n
+    return (time() - start) / n
