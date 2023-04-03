@@ -1,4 +1,4 @@
-#!/usr/bin/env pyhon3
+#!/usr/bin/env python3
 ''' Description: create a measure time function with integers n and max_delay
                  as agruments that measures the total execution
                  time for max_n(n, max_delay)
