@@ -8,8 +8,8 @@ import random
 
 
 async def wait_random(max_delay: int = 10) -> float:
-    delay = random.uniform(0, max_delay)
+    x = random.uniform(0, max_delay)
     ''' Used to generate random float between 0 and max_delay '''
-    await asyncio.sleep(delay)
+    await asyncio.sleep(x)
     ''' to delay for amount of that time '''
-    return delay
+    return x
