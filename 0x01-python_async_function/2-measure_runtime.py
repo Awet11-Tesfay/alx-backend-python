@@ -2,7 +2,7 @@
 ''' Description: create a measure time function with integers n and max_delay
                  as agruments that measures the total execution
                  time for max_n(n, max_delay)
-    Arguments: n: int, max_delay: int
+    Arguments: n: int, max_delay
 '''
 from time import time
 from asyncio import run
