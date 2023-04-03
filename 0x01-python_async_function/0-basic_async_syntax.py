@@ -2,6 +2,7 @@
 ''' Description: asyncronous coroutine that takes in an interger
         and named wait_random that waits for random delay
     Arguments: max_delay: int = 10
+    Returns: x
 '''
 
 import asyncio
