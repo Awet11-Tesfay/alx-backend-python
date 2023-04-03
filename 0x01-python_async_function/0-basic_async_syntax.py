@@ -3,8 +3,10 @@
     Arguments: max_delay, int default value, x as random generated float
 """
 
+
 import asyncio
 import random
+
 
 async def wait_random(max_delay: int = 10) -> float:
 
