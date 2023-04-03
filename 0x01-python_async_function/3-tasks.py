@@ -3,7 +3,6 @@
                  regular function syntax to do this
                  task_wait_random that takes an integer
     Arguments: max_delay: int
-    Returns: asyncio.Task
 '''
 
 import asyncio
