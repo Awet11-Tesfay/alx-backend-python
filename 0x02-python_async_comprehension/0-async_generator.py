@@ -6,7 +6,7 @@
 '''
 
 import asyncio
-import random
+from random import random
 from typing import Generator
 
 
