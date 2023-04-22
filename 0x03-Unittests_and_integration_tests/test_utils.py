@@ -16,11 +16,11 @@ class TestAccessNestMap(unittest.TestCase):
         ({"a": {"b": 2}}, ("a",), {'b': 2}),
         ({"a": {"b": 2}}, ("a", "b"), 2)
     ])
-    def test_access_nested_map(self,seted_map, path, expected_result):
+    def test_access_nested_map(self, seted_map, path, expected_result):
         """ Method to test that the method returns as it supposed
         """
         self.assertEqual(access_nested_map(map, path, expected_result))
-    
+
     @parameterized.expand([
         ({}, ("a"), 'a'),
         ({"a": 1}, ("a", "b"), 'b')
