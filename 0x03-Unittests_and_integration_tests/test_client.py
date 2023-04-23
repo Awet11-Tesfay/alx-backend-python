@@ -5,12 +5,9 @@
 import json
 import unittest
 from fixtures import TEST_PAYLOAD
-import utils
 from parameterized import parameterized, parameterized_class
 from client import GithubOrgClient
-from unittest.mock import patch, call, propertyMock, Mock
-import client
-import requests
+from unittest.mock import patch, propertyMock, Mock
 
 
 class TestGithubOrgClient(unittest.TestCase):
