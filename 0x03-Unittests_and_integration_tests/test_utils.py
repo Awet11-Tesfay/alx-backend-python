@@ -20,3 +20,14 @@ class TestAccessNestedMap(unittest.TestCase):
         """ Method to test that the method return what it is supposed
         """
         self.assertEqual(access_nested_map(map, path), expected_output)
+
+    @parameterized.expand([
+        ({}, ("a"), 'a'),
+        ({"a": 1}, ("a", "b"), 'b')
+    ])
+    def test_access_nested_map_exception(self, map, path, unexpected_output):
+        """ Return the unexpected or wrong output
+        """
+        with self.assertRaises(KeyError) as error:
+            self.assertEqual(access_nested_map(
+                unexpected_output, error.exception))
