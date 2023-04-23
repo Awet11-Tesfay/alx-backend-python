@@ -24,4 +24,4 @@ class TestGithubOrgClient(unittest.TestCase):
         """
         test_class = GithubOrgClient(output)
         test_class.org()
-        patch.assert_called_once_with(f'https://api.github.com/orgs/{output}')
+        patch.assert_called_once_with(f'https://api.github.com/orgs/{input}')
