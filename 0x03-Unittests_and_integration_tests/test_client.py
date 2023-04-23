@@ -15,8 +15,8 @@ class TestGithubOrgClient(unittest.TestCase):
     """
 
     @parameterized.expand([
-        ('google'),
-        ('abc')
+        ("google", {"google": True}),
+        ("abc", {"abc": True})
     ])
     @patch('client.get_json')
     def test_org(self, output, patch):
