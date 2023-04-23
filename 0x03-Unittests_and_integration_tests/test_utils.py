@@ -29,5 +29,5 @@ class TestAccessNestedMap(unittest.TestCase):
         """ Return the unexpected or wrong output
         """
         with self.assertRaises(KeyError) as error:
-            self.assertEqual(access_nested_map(
-                unexpected_output, error.exception))
+            self.assertEqual(access_nested_map(map, path)
+                             (unexpected_output, error.exception))
