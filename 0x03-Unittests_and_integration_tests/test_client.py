@@ -77,32 +77,33 @@ class TestIntegrationGithubOrgClient(TestCase):
     """
 
     @classmethod
-    def setUpClass(self):
+    def setUpClass(cls):
         """ Should mock requests.get to return payloads
         """
-        input = TEST_PAYLOAD[0][0]
-        output = TEST_PAYLOAD[0][1]
-        mock = Mock()
-        mock.json = Mock(return_value=input)
-        self.mock = mock
+        org = TEST_PAYLOAD[0][0]
+        repos = TEST_PAYLOAD[0][1]
+        org_mock = Mock()
+        org_mock.json = Mock(return_value=org)
+        cls.org_mock = org_mock
         repos_mock = Mock()
-        repos_mock.json = Mock(return_value=output)
-        self.repos_mock = repos_mock
+        repos_mock.json = Mock(return_value=repos)
+        cls.repos_mock = repos_mock
 
-        self.patcher = patch('requests.get')
-        self.get = self.patcher.start()
+        cls.get_patcher = patch('requests.get')
+        cls.get = cls.get_patcher.start()
 
-        rep = {self.org_payload["repos_url"]: repos_mock}
-        self.get.side_effect = lambda y: rep.get(y, mock)
+        options = {cls.org_payload["repos_url"]: repos_mock}
+        cls.get.side_effect = lambda y: options.get(y, org_mock)
 
     @classmethod
     def tearDownClass(self):
         """ Implement method to stop the patcher
         """
-        self.patcher.stop()
+        self.get_patcher.stop()
 
     def test_public_repos(self):
-        """ public repos test """
+        """ public repos test
+        """
         a = GithubOrgClient("b")
         self.assertEqual(a.org, self.org_payload)
         self.assertEqual(a.repos_payload, self.repos_payload)
