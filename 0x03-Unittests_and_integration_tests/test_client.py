@@ -95,11 +95,13 @@ class TestIntegrationGithubOrgClient(TestCase):
 
     @classmethod
     def tearDownClass(cls):
-        """ unprepare for testing """
+        """ Method to stop the patcher
+        """
         cls.get_patcher.stop()
 
     def test_public_repos(self):
-        """ public repos test """
+        """ To implement the method
+        """
         t = GithubOrgClient("a")
         self.assertEqual(t.org, self.org_payload)
         self.assertEqual(t.repos_payload, self.repos_payload)
@@ -109,7 +111,8 @@ class TestIntegrationGithubOrgClient(TestCase):
                                    call(self.org_payload["repos_url"])])
 
     def test_public_repos_with_license(self):
-        """ public repos test """
+        """ To test the public repos
+        """
         t = GithubOrgClient("a")
         self.assertEqual(t.org, self.org_payload)
         self.assertEqual(t.repos_payload, self.repos_payload)
