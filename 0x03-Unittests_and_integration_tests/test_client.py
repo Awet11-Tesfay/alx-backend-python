@@ -66,3 +66,31 @@ class TestGithubOrgClient(TestCase):
         """ Parameterize the test with the ff inputs
         """
         self.assertEqual(GithubOrgClient.has_license(input, license), output)
+
+
+@parameterized_class(
+    ('org_payload', 'repos_payload', 'expected_repos', 'appache2_repos'),
+    TEST_PAYLOAD
+)
+class TestIntegrationGithubOrgClient(TestCase):
+    """ Implement setUpclass and tearDownClass
+    """
+
+    @classmethod
+    def setUpClass(self):
+        """ Should mock requests.get to return payloads
+        """
+        input = TEST_PAYLOAD[0][0]
+        output = TEST_PAYLOAD[0][1]
+        mock = Mock()
+        mock.json = Mock(return_value=input)
+        self.mock = mock
+        repos_mock = Mock()
+        repos_mock.json = Mock(return_value=output)
+        self.repos_mock = repos_mock
+
+        self.patcher = patch('requests.get')
+        self.get = self.patcher.start()
+
+        rep = {self.org_payload["repos_url"]: repos_mock}
+        self.get.side_effect = lambda y: rep.get(y, mock)
