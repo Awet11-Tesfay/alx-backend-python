@@ -94,3 +94,9 @@ class TestIntegrationGithubOrgClient(TestCase):
 
         rep = {self.org_payload["repos_url"]: repos_mock}
         self.get.side_effect = lambda y: rep.get(y, mock)
+
+    @classmethod
+    def tearDownClass(self):
+        """ Implement method to stop the patcher
+        """
+        self.patcher.stop()
