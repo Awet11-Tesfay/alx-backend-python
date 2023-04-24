@@ -51,7 +51,7 @@ class TestGithubOrgClient(TestCase):
         get_json.return_value = [haile, awet, hari]
         with patch(mock, PropertyMock(return_value="www.yes.com")) as x:
             a = GithubOrgClient("a")
-            self.assertEqual(x.public_repos(), ['Haile', 'Awet', 'Hari'])
+            self.assertEqual(a.public_repos(), ['Haile', 'Awet', 'Hari'])
             self.assertEqual(a.public_repos("a"), ['Haile'])
             self.assertEqual(a.public_repos("c"), [])
             self.assertEqual(a.public_repos(45), [])
