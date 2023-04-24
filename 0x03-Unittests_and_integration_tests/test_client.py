@@ -41,11 +41,11 @@ class TestGithubOrgClient(TestCase):
             self.assertEqual(client._public_repos_url, output)
 
     @patch('client.get_json')
-    def test_public_repos(self, get_json_mock):
+    def test_public_repos(self, get_json):
         """ Return value of your choice
         """
-        haile = {"name": "Haile", "licence": {"key": "a"}}
-        awet = {"name": "Awet", "licence": {"key": "b"}}
+        haile = {"name": "Haile", "license": {"key": "a"}}
+        awet = {"name": "Awet", "license": {"key": "b"}}
         hari = {"name": "Hari"}
         mock = 'client.GithubOrgClient._public_repos_url'
         get_json.return_value = [haile, awet, hari]
@@ -55,5 +55,14 @@ class TestGithubOrgClient(TestCase):
             self.assertEqual(a.public_repos("a"), ['Haile'])
             self.assertEqual(a.public_repos("c"), [])
             self.assertEqual(a.public_repos(45), [])
-            get_json_mock.assert_called_once_with("www.yes.com")
+            get_json.assert_called_once_with("www.yes.com")
             x.assert_called_once_with()
+
+    @parameterized.expand([
+        ({'license': {'key': 'my_license'}}, 'my_license', True),
+        ({'license': {'key': 'other_license'}}, 'my_license', False)
+    ])
+    def test_has_license(self, input, license, output):
+        """ Parameterize the test with the ff inputs
+        """
+        self.assertEqual(GithubOrgClient.has_license(input, license), output)
