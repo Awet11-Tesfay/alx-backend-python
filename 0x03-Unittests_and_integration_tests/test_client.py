@@ -2,16 +2,19 @@
 """ Parameterize and patch as decorators
 """
 
-import json
-import unittest
 from fixtures import TEST_PAYLOAD
-from parameterized import parameterized, parameterized_class
+import requests
+import client
+from unittest import TestCase
 from client import GithubOrgClient
-from unittest.mock import patch, propertyMock, Mock
+from unittest.mock import patch, Mock, PropertyMock, call
+from utils import access_nested_map, get_json, memoize
+from parameterized import parameterized_class, parameterized
+import utils
 
 
-class TestGithubOrgClient(unittest.TestCase):
-    """ Implement the test_org method
+class TestGithubOrgClient(TestCase):
+    """ Implement the test_org
     """
 
     @parameterized.expand([
@@ -19,9 +22,10 @@ class TestGithubOrgClient(unittest.TestCase):
         ("abc", {"abc": True})
     ])
     @patch('client.get_json')
-    def test_org(self, output, patch):
-        """ Returns the correct value
+    def test_org(self, output, mock, patch):
+        """ With the expected argument and not exectued
         """
-        test_class = GithubOrgClient(output)
-        test_class.org()
-        patch.assert_called_once_with(f'https://api.github.com/orgs/{output}')
+        patch.return_value = mock
+        a = GithubOrgClient(output)
+        self.assertEqual(a.output, mock)
+        patch.assert_called_once_with("https://api.github.com/orgs/"+output)
