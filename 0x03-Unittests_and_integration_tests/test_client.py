@@ -72,7 +72,7 @@ class TestGithubOrgClient(TestCase):
     ('org_payload', 'repos_payload', 'expected_repos', 'appache2_repos'),
     TEST_PAYLOAD
 )
-class TestIntegrationGithubOrgClient(unittest.TestCase):
+class TestIntegrationGithubOrgClient(TestCase):
     """ Integration test for github org client """
 
     @classmethod
@@ -91,7 +91,7 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
         cls.get = cls.get_patcher.start()
 
         options = {cls.org_payload["repos_url"]: repos_mock}
-        cls.get.side_effect = lambda y: options.get(y, org_mock)
+        cls.get.side_effect = lambda x: options.get(x, org_mock)
 
     @classmethod
     def tearDownClass(cls):
