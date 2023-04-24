@@ -22,10 +22,11 @@ class TestGithubOrgClient(TestCase):
         ("abc", {"abc": True})
     ])
     @patch('client.get_json')
-    def test_org(self, output, mock, patch):
+    def test_org(self, org, mock, patch):
         """ With the expected argument and not exectued
         """
         patch.return_value = mock
-        a = GithubOrgClient(output)
-        self.assertEqual(a.output, mock)
-        patch.assert_called_once_with("https://api.github.com/orgs/"+output)
+        a = GithubOrgClient(org)
+        self.assertEqual(a.org, mock)
+        patch.assert_called_once_with("https://api.github.com/orgs/"+org)
+
