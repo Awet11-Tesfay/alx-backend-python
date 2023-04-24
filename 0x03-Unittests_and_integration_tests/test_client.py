@@ -72,14 +72,12 @@ class TestGithubOrgClient(TestCase):
     ('org_payload', 'repos_payload', 'expected_repos', 'appache2_repos'),
     TEST_PAYLOAD
 )
-class TestIntegrationGithubOrgClient(TestCase):
-    """ Implement setUpclass and tearDownClass
-    """
+class TestIntegrationGithubOrgClient(unittest.TestCase):
+    """ Integration test for github org client """
 
     @classmethod
     def setUpClass(cls):
-        """ Should mock requests.get to return payloads
-        """
+        """ prepare for testing """
         org = TEST_PAYLOAD[0][0]
         repos = TEST_PAYLOAD[0][1]
         org_mock = Mock()
@@ -96,29 +94,27 @@ class TestIntegrationGithubOrgClient(TestCase):
         cls.get.side_effect = lambda y: options.get(y, org_mock)
 
     @classmethod
-    def tearDownClass(self):
-        """ Implement method to stop the patcher
-        """
-        self.get_patcher.stop()
+    def tearDownClass(cls):
+        """ unprepare for testing """
+        cls.get_patcher.stop()
 
     def test_public_repos(self):
-        """ public repos test
-        """
-        a = GithubOrgClient("b")
-        self.assertEqual(a.org, self.org_payload)
-        self.assertEqual(a.repos_payload, self.repos_payload)
-        self.assertEqual(a.public_repos(), self.expected_repos)
-        self.assertEqual(a.public_repos("NONEXISTENT"), [])
-        self.get.assert_has_calls([call("https://api.github.com/orgs/b"),
+        """ public repos test """
+        y = GithubOrgClient("x")
+        self.assertEqual(y.org, self.org_payload)
+        self.assertEqual(y.repos_payload, self.repos_payload)
+        self.assertEqual(y.public_repos(), self.expected_repos)
+        self.assertEqual(y.public_repos("NONEXISTENT"), [])
+        self.get.assert_has_calls([call("https://api.github.com/orgs/x"),
                                    call(self.org_payload["repos_url"])])
 
     def test_public_repos_with_license(self):
         """ public repos test """
-        a = GithubOrgClient("b")
-        self.assertEqual(a.org, self.org_payload)
-        self.assertEqual(a.repos_payload, self.repos_payload)
-        self.assertEqual(a.public_repos(), self.expected_repos)
-        self.assertEqual(a.public_repos("NONEXISTENT"), [])
-        self.assertEqual(a.public_repos("apache-2.0"), self.apache2_repos)
-        self.get.assert_has_calls([call("https://api.github.com/orgs/b"),
+        y = GithubOrgClient("x")
+        self.assertEqual(y.org, self.org_payload)
+        self.assertEqual(y.repos_payload, self.repos_payload)
+        self.assertEqual(y.public_repos(), self.expected_repos)
+        self.assertEqual(y.public_repos("NONEXISTENT"), [])
+        self.assertEqual(y.public_repos("apache-2.0"), self.apache2_repos)
+        self.get.assert_has_calls([call("https://api.github.com/orgs/x"),
                                    call(self.org_payload["repos_url"])])
