@@ -100,3 +100,24 @@ class TestIntegrationGithubOrgClient(TestCase):
         """ Implement method to stop the patcher
         """
         self.patcher.stop()
+
+    def test_public_repos(self):
+        """ public repos test """
+        a = GithubOrgClient("b")
+        self.assertEqual(a.org, self.org_payload)
+        self.assertEqual(a.repos_payload, self.repos_payload)
+        self.assertEqual(a.public_repos(), self.expected_repos)
+        self.assertEqual(a.public_repos("NONEXISTENT"), [])
+        self.get.assert_has_calls([call("https://api.github.com/orgs/b"),
+                                   call(self.org_payload["repos_url"])])
+
+    def test_public_repos_with_license(self):
+        """ public repos test """
+        a = GithubOrgClient("b")
+        self.assertEqual(a.org, self.org_payload)
+        self.assertEqual(a.repos_payload, self.repos_payload)
+        self.assertEqual(a.public_repos(), self.expected_repos)
+        self.assertEqual(a.public_repos("NONEXISTENT"), [])
+        self.assertEqual(a.public_repos("apache-2.0"), self.apache2_repos)
+        self.get.assert_has_calls([call("https://api.github.com/orgs/b"),
+                                   call(self.org_payload["repos_url"])])
